@@ -4,8 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class MovingGrid : MonoBehaviour {
-	public int xSize;
-	public int ySize;
+	public float xSize;
+	public float ySize;
+	public float targetSize;
 	private Vector3[] verticies;
 
 	// Use this for initialization
@@ -26,11 +27,11 @@ public class MovingGrid : MonoBehaviour {
 		Mesh mesh = new Mesh ();
 		mesh.name = "MovingMesh";
 		GetComponent<MeshFilter> ().mesh = mesh;
-		verticies = new Vector3[(xSize + 1) * (ySize + 1)];
+		verticies = new Vector3[((int)xSize + 1) * ((int)ySize + 1)];
 		Vector2[] uv = new Vector2[verticies.Length];
 		for (int i = 0, y = 0; y <= ySize; y++) {
-			for (int x = 0; x <= xSize; x++, i++) {
-				verticies [i] = new Vector3 (x, y);
+			for (float x = 0; x <= xSize; x++, i++) {
+				verticies [i] = new Vector3 (x * targetSize / xSize, y * targetSize / ySize);
 				uv [i] = new Vector2 ((float)x / xSize, (float)y / ySize);
 			}
 		}
@@ -38,13 +39,13 @@ public class MovingGrid : MonoBehaviour {
 		mesh.vertices = verticies;
 		mesh.uv = uv;
 
-		int[] triangles = new int[xSize * ySize * 6];
+		int[] triangles = new int[(int)xSize * (int)ySize * 6];
 		for (int ti = 0, vi = 0, y = 0; y < ySize; y++, vi++) {
 			for (int x = 0; x < xSize; x++, ti += 6, vi++) {
 				triangles[ti] = vi;
 				triangles[ti + 3] = triangles[ti + 2] = vi + 1;
-				triangles[ti + 4] = triangles[ti + 1] = vi + xSize + 1;
-				triangles[ti + 5] = vi + xSize + 2;
+				triangles[ti + 4] = triangles[ti + 1] = vi + (int)xSize + 1;
+				triangles[ti + 5] = vi + (int)xSize + 2;
 			}
 		}
 		mesh.triangles = triangles;

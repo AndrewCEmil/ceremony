@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void StopTrigger() {
-		deformationController.UpdateDeformMode (DeformMode.Off);
+		deformationController.UpdateDeformMode (DeformMode.SmallCircle);
 		//Start Timer player
 	}
 
