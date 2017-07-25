@@ -12,6 +12,7 @@ public enum DeformMode
 	RisingCircle
 }
 
+public delegate float HeightFunction(Vector3 vertex);
 
 public class DeformationController : MonoBehaviour {
 
@@ -94,24 +95,47 @@ public class DeformationController : MonoBehaviour {
 			return;
 		}
 		//TODO
-		Circle(1000);
+		Circle(OffCircleHeight);
 		isOff = true;
 	}
 
+	float OffCircleHeight(Vector3 vertex) {
+		return -1f;
+	}
+
 	void BigCircle() {
-		Circle (bigRadius);
+		Circle (BigCircleHeight);
 	}
 
 	void SmallCircle() {
-		Circle (smallRadius);
+		Circle (SmallCircleHeight);
 	}
 
+	float BigCircleHeight(Vector3 vertex) {
+		return CircleHeight (vertex, bigRadius);
+	}
+
+	float SmallCircleHeight(Vector3 vertex) {
+		return CircleHeight (vertex, smallRadius);
+	}
+
+	float CircleHeight(Vector3 vertex, float radius) {
+		return GetNoise (vertex, Time.time) * GetHeight (vertex, radius);
+	}
+
+
 	void RisingCircle() {
-		Circle (innerRadius);
+		//TODO
+		Circle (OffCircleHeight);
+	}
+
+	float CurrentCircleHeight(Vector3 vertex) {
+		return CircleHeight (vertex, currentRadius);
 	}
 
 	void ExpandCircle() {
-		Circle (currentRadius);
+		//Circle takes a funcion that takes a vertext, this function calls CircleHeight with current radius
+		Circle (CurrentCircleHeight);
 		currentRadius += Time.time * circleSpeed;
 		if (currentRadius >= bigRadius) {
 			ExpandedTrigger ();
@@ -119,7 +143,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void ContractCircle() {
-		Circle (currentRadius);
+		Circle (CurrentCircleHeight);
 		currentRadius -= Time.time * circleSpeed;
 		if (currentRadius <= innerRadius) {
 			ContractedTrigger ();
@@ -127,31 +151,29 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	public void StartCircleSequence() {
-		isWaiting = true;
-		startTime = Time.time;
-		waitTime = 10;
-		nextMode = DeformMode.ExpandingCircle;
-		deformMode = DeformMode.SmallCircle;
+		StartTimerAndSetMode (10, DeformMode.ExpandingCircle, DeformMode.SmallCircle);
 	}
 
 	void ExpandedTrigger() {
-		isWaiting = true;
-		startTime = Time.time;
-		waitTime = 10;
-		nextMode = DeformMode.ContractingCircle;
-		deformMode = DeformMode.BigCircle;
+		StartTimerAndSetMode (10, DeformMode.ContractingCircle, DeformMode.BigCircle);
 	}
 
 	void ContractedTrigger() {
+		StartTimerAndSetMode (10, DeformMode.Off, DeformMode.RisingCircle);
+	}
+
+	void StartTimerAndSetMode(float length, DeformMode next, DeformMode current) {
+		deformMode = current;
+		StartTimer (length, next);
+	}
+	void StartTimer(float length, DeformMode next) {
 		isWaiting = true;
 		startTime = Time.time;
-		waitTime = 10;
-		nextMode = DeformMode.Off;
-		deformMode = DeformMode.RisingCircle;
+		waitTime = length;
+		nextMode = next;
 	}
 
 	float GetHeight(Vector3 position, float radius) {
-		//compute but with height as function of distance from radius
 		float currentRadius = GetRadius(position);
 		float distance = Mathf.Abs (currentRadius - radius);
 		if (distance < epsilon) {
@@ -160,11 +182,15 @@ public class DeformationController : MonoBehaviour {
 		return -1f;
 	}
 
+	float GetNoise(Vector3 vertex, float time) {
+		return Mathf.PerlinNoise(time + vertex.x, time + vertex.y);
+	}
+
 	float GetRadius(Vector3 position) {
 		return Vector3.Distance (position, middlePosition);
 	}
 
-	void Circle(float radius) {
+	void Circle(HeightFunction hf) {
 		MeshFilter meshFilter = gameObject.GetComponent<MeshFilter> ();
 		Mesh mesh = meshFilter.mesh;
 		Vector3[] baseVerticies = mesh.vertices;
@@ -173,9 +199,7 @@ public class DeformationController : MonoBehaviour {
 		float timez = Time.time / 100f;
 		for (var i=0; i < baseVerticies.Length; i++) {
 			var vertex = baseVerticies[i];
-			float noise = -1 * Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);
-			float scale = GetHeight (vertex, radius);
-			vertex.z = noise * scale;
+			vertex.z = -1 * hf (vertex);
 			vertices[i] = vertex;
 		}
 
