@@ -9,7 +9,8 @@ public enum DeformMode
 	BigCircle,
 	ExpandingCircle,
 	ContractingCircle,
-	RisingCircle
+	RisingCircle,
+	FallingCircle
 }
 
 public delegate float HeightFunction(Vector3 vertex);
@@ -30,9 +31,14 @@ public class DeformationController : MonoBehaviour {
 	private float waitTime;
 	private DeformMode nextMode;
 	private float circleSpeed;
+	private Vector3 storedVector;
+	private float risingDuration;
+	private float risingStartTime;
+	private float fallingDuration;
+	private float fallingStartTime;
 	// Use this for initialization
 	void Start () {
-		deformMode = DeformMode.Off;
+		deformMode = DeformMode.RisingCircle;
 		isOff = false;
 		smallRadius = 2f;
 		bigRadius = 4.5f;
@@ -43,6 +49,9 @@ public class DeformationController : MonoBehaviour {
 		currentRadius = smallRadius;
 		isWaiting = false;
 		circleSpeed = .005f;
+		storedVector = new Vector3 (0, 0, 0);
+		risingDuration = 5f;
+		fallingDuration = 5f;
 	}
 	
 	// Update is called once per frame
@@ -125,8 +134,28 @@ public class DeformationController : MonoBehaviour {
 
 
 	void RisingCircle() {
-		//TODO
-		Circle (OffCircleHeight);
+		Circle (RisingCircleHeight);
+	}
+
+	//Radius: 1-0
+	//Height: 0-max (max gets heigher, thing stays smoother)
+	//Tan((1 - radius) * pi/2) - without changing
+
+	//function from 1 to 0 as duration -> max duration
+	// 1 - duration/maxDuration
+	//Now to expand: radius  = radius * (1 - (duration/max_duration))
+	float RisingCircleHeight(Vector3 vertex) {
+		float radius = GetRadius (vertex);
+		if (radius > 1) {
+			return -1f;
+		}
+
+		if (radius == 0) {
+			radius = .001f;
+		}
+		//radius = radius * (1 - ((Time.time - risingStartTime) / risingDuration));
+		float height = Mathf.Clamp (Mathf.Tan ((1f - radius) * Mathf.PI / 2f), 0, 100);
+		return height;
 	}
 
 	float CurrentCircleHeight(Vector3 vertex) {
@@ -159,7 +188,12 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void ContractedTrigger() {
-		StartTimerAndSetMode (10, DeformMode.Off, DeformMode.RisingCircle);
+		StartRising ();
+	}
+
+	void StartRising() {
+		deformMode = DeformMode.RisingCircle;
+		risingStartTime = Time.time;
 	}
 
 	void StartTimerAndSetMode(float length, DeformMode next, DeformMode current) {
@@ -187,7 +221,9 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	float GetRadius(Vector3 position) {
-		return Vector3.Distance (position, middlePosition);
+		storedVector.x = position.x;
+		storedVector.y = position.y;
+		return Vector3.Distance (storedVector, middlePosition);
 	}
 
 	void Circle(HeightFunction hf) {
