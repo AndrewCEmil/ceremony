@@ -71,9 +71,9 @@ public class DeformationController : MonoBehaviour {
 		float timez = Time.time;
 		for (var i=0; i < baseVerticies.Length; i++) {
 			var vertex = baseVerticies[i];
-			float noise = Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);
+			float noise = -1 * Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);
 			if (zero)
-				noise = 0f;
+				noise = 10f;
 			vertex.z = noise;
 			vertices[i] = vertex;
 		}
@@ -90,7 +90,7 @@ public class DeformationController : MonoBehaviour {
 		if (distance < epsilon) {
 			return maxHeight * (epsilon - distance);
 		}
-		return 0f;
+		return -1f;
 	}
 
 	float GetBigCircleHeight(Vector3 position) {
@@ -100,7 +100,7 @@ public class DeformationController : MonoBehaviour {
 		if (distance < epsilon) {
 			return maxHeight * (epsilon - distance);
 		}
-		return 0f;
+		return -1f;
 	}
 
 	float GetRadius(Vector3 position) {
@@ -116,7 +116,7 @@ public class DeformationController : MonoBehaviour {
 		float timez = Time.time;
 		for (var i=0; i < baseVerticies.Length; i++) {
 			var vertex = baseVerticies[i];
-			float noise = Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);
+			float noise = -1 * Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);
 			float scale = GetSmallCircleHeight (vertex);
 			vertex.z = noise * scale;
 			vertices[i] = vertex;
