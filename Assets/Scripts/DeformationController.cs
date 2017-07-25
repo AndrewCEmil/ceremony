@@ -51,7 +51,7 @@ public class DeformationController : MonoBehaviour {
 		circleSpeed = .005f;
 		storedVector = new Vector3 (0, 0, 0);
 		risingDuration = 5f;
-		fallingDuration = 5f;
+		fallingDuration = 10f;
 	}
 	
 	// Update is called once per frame
@@ -156,8 +156,6 @@ public class DeformationController : MonoBehaviour {
 		if (radius > 1) {
 			return -1f;
 		}
-		float startRadius = radius;
-
 		float duration = (Time.time - risingStartTime) / risingDuration;
 		float maxRadius = (1f - duration);
 		radius = Mathf.Clamp (1f - radius, 0.001f, maxRadius - .001f);
@@ -167,21 +165,27 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	//needs to start at all risen and smooth out
-	//TODO
+	//Start: radius = 1, radius_offset = 1
+	//End: radius = 10, radius_offset = 0
+	//as time goes on radius 1 -> 10, offset 1 -> 0
 	float FallingCircleHeight(Vector3 vertex) {
-		return -1f;
-		/*
+		float duration = (Time.time - fallingStartTime) / fallingDuration;
+		float legalRadius = duration * 10;
+		float radiusOffset = Mathf.Clamp (1 - duration * 5, 0, 1f);
 		float radius = GetRadius (vertex);
-		if (radius > 1) {
+
+		if (radius > legalRadius) {
 			return -1f;
 		}
 
-		if (radius == 0) {
-			radius = .001f;
+		if (radius < radiusOffset) {
+			radius = radiusOffset;
 		}
-		radius = radius * (1 - ((Time.time - risingStartTime) / risingDuration));
+		radius = radius - radiusOffset;
+		radius = radius / (legalRadius - radiusOffset);
+		radius = Mathf.Clamp (radius, 0.001f, .999f);
 		float height = Mathf.Clamp (Mathf.Tan ((1f - radius) * Mathf.PI / 2f), 0, 100);
-*/
+		return height;
 	}
 
 	float CurrentCircleHeight(Vector3 vertex) {
@@ -218,11 +222,12 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void RoseTrigger() {
-		//StartFalling ();
+		StartFalling ();
+		//TODO enable crystal, disable monolith
 	}
 
 	void FallenTrigger() {
-		//TODO
+		deformMode = DeformMode.Off;
 	}
 
 	void StartRising() {
