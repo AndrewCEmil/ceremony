@@ -8,7 +8,8 @@ public enum DeformMode
 	SmallCircle,
 	BigCircle,
 	ExpandingCircle,
-	ContractingCircle
+	ContractingCircle,
+	RisingCircle
 }
 
 
@@ -18,6 +19,7 @@ public class DeformationController : MonoBehaviour {
 	private bool isOff;
 	private float smallRadius;
 	private float bigRadius;
+	private float innerRadius;
 	private float maxHeight;
 	private float epsilon;
 	private Vector3 middlePosition;
@@ -33,12 +35,13 @@ public class DeformationController : MonoBehaviour {
 		isOff = false;
 		smallRadius = 2f;
 		bigRadius = 4.5f;
+		innerRadius = .5f;
 		maxHeight = 15f;
 		epsilon = .5f;
 		middlePosition = new Vector3 (5, 5, 0);
 		currentRadius = smallRadius;
 		isWaiting = false;
-		circleSpeed = .2f;
+		circleSpeed = .005f;
 	}
 	
 	// Update is called once per frame
@@ -73,6 +76,9 @@ public class DeformationController : MonoBehaviour {
 		case DeformMode.ContractingCircle:
 			ContractCircle ();
 			break;
+		case DeformMode.RisingCircle:
+			RisingCircle ();
+			break;
 		}
 
 		if (deformMode != DeformMode.Off)
@@ -100,6 +106,10 @@ public class DeformationController : MonoBehaviour {
 		Circle (smallRadius);
 	}
 
+	void RisingCircle() {
+		Circle (innerRadius);
+	}
+
 	void ExpandCircle() {
 		Circle (currentRadius);
 		currentRadius += Time.time * circleSpeed;
@@ -111,7 +121,7 @@ public class DeformationController : MonoBehaviour {
 	void ContractCircle() {
 		Circle (currentRadius);
 		currentRadius -= Time.time * circleSpeed;
-		if (currentRadius <= smallRadius) {
+		if (currentRadius <= innerRadius) {
 			ContractedTrigger ();
 		}
 	}
@@ -133,7 +143,11 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void ContractedTrigger() {
-		deformMode = DeformMode.SmallCircle;
+		isWaiting = true;
+		startTime = Time.time;
+		waitTime = 10;
+		nextMode = DeformMode.Off;
+		deformMode = DeformMode.RisingCircle;
 	}
 
 	float GetHeight(Vector3 position, float radius) {
@@ -156,7 +170,7 @@ public class DeformationController : MonoBehaviour {
 		Vector3[] baseVerticies = mesh.vertices;
 		Vector3[] vertices = new Vector3[baseVerticies.Length];
 
-		float timez = Time.time;
+		float timez = Time.time / 100f;
 		for (var i=0; i < baseVerticies.Length; i++) {
 			var vertex = baseVerticies[i];
 			float noise = -1 * Mathf.PerlinNoise(timez + vertex.x, timez + vertex.y);

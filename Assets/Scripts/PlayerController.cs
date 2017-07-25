@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private bool AtTarget() {
-		return Vector3.Distance (transform.position, currentWaypoint.transform.position) < 1.5;
+		return Vector3.Distance (transform.position, currentWaypoint.transform.position) < 6;
 	}
 
 	private void UpdateTarget() {
