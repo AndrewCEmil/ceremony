@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		Physics.gravity = new Vector3(0, -0.2F, 0);
 		Physics.bounceThreshold = 0;
-		speed = 0.029f;
+		//speed = 0.029f;
+		speed = 1f;
 		InitMovement ();
 		deformationController = GameObject.Find ("MovingGrid").GetComponent<DeformationController> ();
 	}
@@ -56,12 +57,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void StopTrigger() {
-		deformationController.UpdateDeformMode (DeformMode.SmallCircle);
-		//Start Timer player
+		deformationController.StartCircleSequence ();
 	}
 
 	private bool AtTarget() {
-		return Vector3.Distance (transform.position, currentWaypoint.transform.position) < 1;
+		return Vector3.Distance (transform.position, currentWaypoint.transform.position) < 1.5;
 	}
 
 	private void UpdateTarget() {
