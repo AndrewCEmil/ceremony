@@ -10,7 +10,8 @@ public enum DeformMode
 	ExpandingCircle,
 	ContractingCircle,
 	RisingCircle,
-	FallingCircle
+	FallingCircle,
+	FinalFallingCircle
 }
 
 public delegate float HeightFunction(Vector3 vertex);
@@ -36,6 +37,8 @@ public class DeformationController : MonoBehaviour {
 	private float risingStartTime;
 	private float fallingDuration;
 	private float fallingStartTime;
+	private float finalDuration;
+	private float finalStartTime;
 	// Use this for initialization
 	void Start () {
 		deformMode = DeformMode.Off;
@@ -52,6 +55,7 @@ public class DeformationController : MonoBehaviour {
 		storedVector = new Vector3 (0, 0, 0);
 		risingDuration = 5f;
 		fallingDuration = 10f;
+		finalDuration = 5f;
 	}
 	
 	// Update is called once per frame
@@ -91,6 +95,9 @@ public class DeformationController : MonoBehaviour {
 			break;
 		case DeformMode.FallingCircle:
 			FallingCircle ();
+			break;
+		case DeformMode.FinalFallingCircle:
+			FinalFallingCircle ();
 			break;
 		}
 
@@ -138,6 +145,7 @@ public class DeformationController : MonoBehaviour {
 
 
 	void RisingCircle() {
+		float time = Time.time;
 		if (Time.time - risingStartTime >= risingDuration) {
 			RoseTrigger ();
 		} else {
@@ -146,10 +154,20 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void FallingCircle() {
-		if (Time.time - fallingStartTime >= fallingDuration) {
+		float time = Time.time;
+		if (Time.time - fallingStartTime > fallingDuration) {
 			FallenTrigger ();
 		} else {
 			Circle (FallingCircleHeight);
+		}
+	}
+
+	void FinalFallingCircle() {
+		float time = Time.time;
+		if (Time.time - finalStartTime > finalDuration) {
+			FinalFallenTrigger ();
+		} else {
+			Circle (FinalFallingCircleHeight);
 		}
 	}
 
@@ -179,6 +197,19 @@ public class DeformationController : MonoBehaviour {
 		float maxRadius = (duration);
 		radius = Mathf.Clamp (1f - radius, 0.001f, maxRadius - .001f);
 		radius = radius / maxRadius;
+		float height = Mathf.Clamp (Mathf.Tan (radius * Mathf.PI / 2f), 0, 100);
+		return height;
+	}
+
+	//TODO basically everything is moving away from the center, there is an "inner radius now"
+	float FinalFallingCircleHeight(Vector3 vertex) {
+		float radius = GetRadius (vertex);
+		if (radius > 1) {
+			return 0.01f;
+		}
+		float duration = (Time.time - finalStartTime) / finalDuration;
+		float maxRadius = (1f - duration);
+		radius = Mathf.Clamp (1f - radius, 0.001f, maxRadius - .001f);
 		float height = Mathf.Clamp (Mathf.Tan (radius * Mathf.PI / 2f), 0, 100);
 		return height;
 	}
@@ -230,6 +261,10 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void FallenTrigger() {
+		StartFinalFalling ();
+	}
+
+	void FinalFallenTrigger() {
 		deformMode = DeformMode.Off;
 	}
 
@@ -241,6 +276,11 @@ public class DeformationController : MonoBehaviour {
 	void StartFalling() {
 		deformMode = DeformMode.FallingCircle;
 		fallingStartTime = Time.time;
+	}
+
+	void StartFinalFalling() {
+		deformMode = DeformMode.FinalFallingCircle;
+		finalStartTime = Time.time;
 	}
 
 	void StartTimerAndSetMode(float length, DeformMode next, DeformMode current) {
