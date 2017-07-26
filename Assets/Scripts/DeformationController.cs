@@ -138,16 +138,18 @@ public class DeformationController : MonoBehaviour {
 
 
 	void RisingCircle() {
-		Circle (RisingCircleHeight);
 		if (Time.time - risingStartTime >= risingDuration) {
 			RoseTrigger ();
+		} else {
+			Circle (RisingCircleHeight);
 		}
 	}
 
 	void FallingCircle() {
-		Circle (FallingCircleHeight);
-		if (Time.time - fallingStartTime > fallingDuration) {
+		if (Time.time - fallingStartTime >= fallingDuration) {
 			FallenTrigger ();
+		} else {
+			Circle (FallingCircleHeight);
 		}
 	}
 
