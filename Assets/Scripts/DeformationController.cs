@@ -169,23 +169,24 @@ public class DeformationController : MonoBehaviour {
 	//End: radius = 10, radius_offset = 0
 	//as time goes on radius 1 -> 10, offset 1 -> 0
 	float FallingCircleHeight(Vector3 vertex) {
-		float duration = (Time.time - fallingStartTime) / fallingDuration;
-		float legalRadius = duration * 10;
-		float radiusOffset = Mathf.Clamp (1 - duration * 5, 0, 1f);
 		float radius = GetRadius (vertex);
+		if (radius > 1) {
+			return FallingCircleOuterHeight (vertex, radius);
+		}
+		float duration = (Time.time - fallingStartTime) / fallingDuration;
+		float maxRadius = (duration);
+		radius = Mathf.Clamp (1f - radius, 0.001f, maxRadius - .001f);
+		radius = radius / maxRadius;
+		float height = Mathf.Clamp (Mathf.Tan (radius * Mathf.PI / 2f), 0, 100);
+		return height;
+	}
 
-		if (radius > legalRadius) {
+	float FallingCircleOuterHeight(Vector3 vertex, float radius) {
+		float duration = (Time.time - fallingStartTime) / fallingDuration;
+		if (radius > (duration * bigRadius)) {
 			return -1f;
 		}
-
-		if (radius < radiusOffset) {
-			radius = radiusOffset;
-		}
-		radius = radius - radiusOffset;
-		radius = radius / (legalRadius - radiusOffset);
-		radius = Mathf.Clamp (radius, 0.001f, .999f);
-		float height = Mathf.Clamp (Mathf.Tan ((1f - radius) * Mathf.PI / 2f), 0, 100);
-		return height;
+		return .01f;
 	}
 
 	float CurrentCircleHeight(Vector3 vertex) {
