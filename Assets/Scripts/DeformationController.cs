@@ -11,7 +11,8 @@ public enum DeformMode
 	ContractingCircle,
 	RisingCircle,
 	FallingCircle,
-	FinalFallingCircle
+	FinalFallingCircle,
+	SweepUp
 }
 
 public delegate float HeightFunction(Vector3 vertex);
@@ -99,6 +100,9 @@ public class DeformationController : MonoBehaviour {
 		case DeformMode.FinalFallingCircle:
 			FinalFallingCircle ();
 			break;
+		case DeformMode.SweepUp:
+			SweepUp ();
+			break;
 		}
 
 		if (deformMode != DeformMode.Off) {
@@ -169,6 +173,14 @@ public class DeformationController : MonoBehaviour {
 		} else {
 			Circle (FinalFallingCircleHeight);
 		}
+	}
+
+	void SweepUp() {
+		Circle (SweepUpHeight);
+	}
+
+	float SweepUpHeight(Vector3 vertex) {
+		return (-1f * vertex.z) - .001f;
 	}
 
 	float RisingCircleHeight(Vector3 vertex) {
@@ -265,7 +277,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void FinalFallenTrigger() {
-		deformMode = DeformMode.Off;
+		deformMode = DeformMode.SweepUp;
 	}
 
 	void StartRising() {
