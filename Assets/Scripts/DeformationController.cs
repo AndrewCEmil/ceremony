@@ -182,7 +182,12 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	float CircleHeight(Vector3 vertex, float radius) {
-		return GetNoise (vertex, Time.time) * GetHeight (vertex, radius);
+		float noise = GetNoise (vertex, Time.time); 
+		float height = GetHeight (vertex, radius);
+		if (height < 0) {
+			return height;
+		}
+		return noise * height;
 	}
 
 
