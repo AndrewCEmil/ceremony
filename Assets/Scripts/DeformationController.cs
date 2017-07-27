@@ -19,6 +19,9 @@ public delegate float HeightFunction(Vector3 vertex);
 
 public class DeformationController : MonoBehaviour {
 
+	public GameObject monolith;
+	public GameObject diamond;
+
 	private DeformMode deformMode;
 	private bool isOff;
 	private float smallRadius;
@@ -180,7 +183,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	float SweepUpHeight(Vector3 vertex) {
-		return (-1f * vertex.z) - .001f;
+		return (-1f * vertex.z) - .002f;
 	}
 
 	float RisingCircleHeight(Vector3 vertex) {
@@ -269,7 +272,12 @@ public class DeformationController : MonoBehaviour {
 
 	void RoseTrigger() {
 		StartFalling ();
-		//TODO enable crystal, disable monolith
+		SwitchObjects ();
+	}
+
+	void SwitchObjects() {
+		monolith.SetActive (false);
+		diamond.SetActive (true);
 	}
 
 	void FallenTrigger() {

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 	private void GetPath() {
 		path = new List<string> () {
 			"W0", 
-			"END"
+			"monolith"
 		};
 	}
 
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private bool InTerminalPosition() {
-		return currentWaypoint.name == "END";
+		return currentWaypoint.name == "monolith";
 	}
 
 	private void DoMovement() {
