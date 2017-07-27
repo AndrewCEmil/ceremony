@@ -13,7 +13,8 @@ public enum DeformMode
 	RisingCircle,
 	FallingCircle,
 	FinalFallingCircle,
-	SweepUp
+	SweepUp,
+	WindDown
 }
 
 public delegate float HeightFunction(Vector3 vertex);
@@ -45,6 +46,7 @@ public class DeformationController : MonoBehaviour {
 	private float finalDuration;
 	private float finalStartTime;
 	private float startingSmallCircleScale;
+	private IntensityController intensityController;
 	// Use this for initialization
 	void Start () {
 		deformMode = DeformMode.Off;
@@ -63,6 +65,7 @@ public class DeformationController : MonoBehaviour {
 		fallingDuration = 10f;
 		finalDuration = 5f;
 		startingSmallCircleScale = 0f;
+		intensityController = GameObject.Find ("IntensityObj").GetComponent<IntensityController> ();
 	}
 	
 	// Update is called once per frame
@@ -71,6 +74,10 @@ public class DeformationController : MonoBehaviour {
 			DoWait ();
 		}
 		DoDeform ();
+	}
+
+	void EndScene() {
+		//TODO
 	}
 
 	void DoWait() {
@@ -112,6 +119,9 @@ public class DeformationController : MonoBehaviour {
 		case DeformMode.SweepUp:
 			SweepUp ();
 			break;
+		case DeformMode.WindDown:
+			WindDown ();
+			break;
 		}
 
 		if (deformMode != DeformMode.Off) {
@@ -138,10 +148,12 @@ public class DeformationController : MonoBehaviour {
 
 	void BigCircle() {
 		Circle (BigCircleHeight);
+		intensityController.IncreaseIntensity ();
 	}
 
 	void SmallCircle() {
 		Circle (SmallCircleHeight);
+		intensityController.IncreaseIntensity ();
 	}
 
 	void StartingSmallCircle() {
@@ -151,6 +163,7 @@ public class DeformationController : MonoBehaviour {
 			Circle (StartingSmallCircleHeight);
 			//TODO really should be growing by time, not by frame
 			startingSmallCircleScale += .01f;
+			intensityController.IncreaseIntensity ();
 		}
 	}
 
@@ -179,6 +192,7 @@ public class DeformationController : MonoBehaviour {
 			RoseTrigger ();
 		} else {
 			Circle (RisingCircleHeight);
+			intensityController.IncreaseIntensity ();
 		}
 	}
 
@@ -188,6 +202,7 @@ public class DeformationController : MonoBehaviour {
 			FallenTrigger ();
 		} else {
 			Circle (FallingCircleHeight);
+			intensityController.IncreaseIntensity ();
 		}
 	}
 
@@ -202,6 +217,13 @@ public class DeformationController : MonoBehaviour {
 
 	void SweepUp() {
 		Circle (SweepUpHeight);
+	}
+
+	void WindDown() {
+		if (intensityController.LightOff ()) {
+			EndScene();
+		}
+		intensityController.DecreaseIntensity ();
 	}
 
 	float SweepUpHeight(Vector3 vertex) {
@@ -311,7 +333,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void FinalFallenTrigger() {
-		deformMode = DeformMode.SweepUp;
+		StartTimerAndSetMode (10, DeformMode.WindDown, DeformMode.SweepUp);
 	}
 
 	void StartRising() {
