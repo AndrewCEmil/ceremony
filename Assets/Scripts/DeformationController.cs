@@ -293,6 +293,7 @@ public class DeformationController : MonoBehaviour {
 		Circle (CurrentCircleHeight);
 		intensityController.IncreaseIntensity ();
 		currentRadius += Time.time * circleSpeed;
+		maxHeight += Time.time * circleSpeed;
 		if (currentRadius >= bigRadius) {
 			ExpandedTrigger ();
 		}
