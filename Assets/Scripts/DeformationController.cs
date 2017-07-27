@@ -5,6 +5,7 @@ using UnityEngine;
 public enum DeformMode
 {
 	Off,
+	StartingSmallCircle,
 	SmallCircle,
 	BigCircle,
 	ExpandingCircle,
@@ -43,6 +44,7 @@ public class DeformationController : MonoBehaviour {
 	private float fallingStartTime;
 	private float finalDuration;
 	private float finalStartTime;
+	private float startingSmallCircleScale;
 	// Use this for initialization
 	void Start () {
 		deformMode = DeformMode.Off;
@@ -60,6 +62,7 @@ public class DeformationController : MonoBehaviour {
 		risingDuration = 5f;
 		fallingDuration = 10f;
 		finalDuration = 5f;
+		startingSmallCircleScale = 0f;
 	}
 	
 	// Update is called once per frame
@@ -82,6 +85,9 @@ public class DeformationController : MonoBehaviour {
 		case DeformMode.Off:
 			DoOff ();
 			break; //Noop
+		case DeformMode.StartingSmallCircle:
+			StartingSmallCircle ();
+			break;
 		case DeformMode.SmallCircle:
 			SmallCircle ();
 			break;
@@ -138,10 +144,26 @@ public class DeformationController : MonoBehaviour {
 		Circle (SmallCircleHeight);
 	}
 
+	void StartingSmallCircle() {
+		if (startingSmallCircleScale >= 1) {
+			StartedSmallTrigger ();
+		} else {
+			Circle (StartingSmallCircleHeight);
+			//TODO really should be growing by time, not by frame
+			startingSmallCircleScale += .01f;
+		}
+	}
+
 	float BigCircleHeight(Vector3 vertex) {
 		return CircleHeight (vertex, bigRadius);
 	}
 
+	float StartingSmallCircleHeight(Vector3 vertext) {
+		if (startingSmallCircleScale <= 0) {
+			return -1f;
+		}
+		return CircleHeight (vertext, smallRadius) * startingSmallCircleScale;
+	}
 	float SmallCircleHeight(Vector3 vertex) {
 		return CircleHeight (vertex, smallRadius);
 	}
@@ -259,7 +281,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	public void StartCircleSequence() {
-		StartTimerAndSetMode (10, DeformMode.ExpandingCircle, DeformMode.SmallCircle);
+		deformMode = DeformMode.StartingSmallCircle;
 	}
 
 	void ExpandedTrigger() {
@@ -268,6 +290,10 @@ public class DeformationController : MonoBehaviour {
 
 	void ContractedTrigger() {
 		StartRising ();
+	}
+
+	void StartedSmallTrigger() {
+		StartTimerAndSetMode (10, DeformMode.ExpandingCircle, DeformMode.SmallCircle);
 	}
 
 	void RoseTrigger() {
