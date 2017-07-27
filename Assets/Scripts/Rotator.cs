@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Rotator : MonoBehaviour {
 	void Update () {
-		transform.Rotate(Vector3.up * Time.deltaTime * 5);
+		transform.Rotate(Vector3.up * Time.deltaTime * 10);
 	}
 }

@@ -303,7 +303,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	public void StartCircleSequence() {
-		deformMode = DeformMode.StartingSmallCircle;
+		StartTimerAndSetMode (3, DeformMode.StartingSmallCircle, DeformMode.Off);
 	}
 
 	void ExpandedTrigger() {
