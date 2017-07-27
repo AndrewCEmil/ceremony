@@ -61,8 +61,8 @@ public class DeformationController : MonoBehaviour {
 		isWaiting = false;
 		circleSpeed = .005f;
 		storedVector = new Vector3 (0, 0, 0);
-		risingDuration = 5f;
-		fallingDuration = 10f;
+		risingDuration = 3f;
+		fallingDuration = 6f;
 		finalDuration = 5f;
 		startingSmallCircleScale = 0f;
 		intensityController = GameObject.Find ("IntensityObj").GetComponent<IntensityController> ();
@@ -192,7 +192,6 @@ public class DeformationController : MonoBehaviour {
 			RoseTrigger ();
 		} else {
 			Circle (RisingCircleHeight);
-			intensityController.IncreaseIntensity ();
 		}
 	}
 
@@ -202,7 +201,6 @@ public class DeformationController : MonoBehaviour {
 			FallenTrigger ();
 		} else {
 			Circle (FallingCircleHeight);
-			intensityController.IncreaseIntensity ();
 		}
 	}
 
@@ -288,6 +286,7 @@ public class DeformationController : MonoBehaviour {
 	void ExpandCircle() {
 		//Circle takes a funcion that takes a vertext, this function calls CircleHeight with current radius
 		Circle (CurrentCircleHeight);
+		intensityController.IncreaseIntensity ();
 		currentRadius += Time.time * circleSpeed;
 		if (currentRadius >= bigRadius) {
 			ExpandedTrigger ();
@@ -296,6 +295,7 @@ public class DeformationController : MonoBehaviour {
 
 	void ContractCircle() {
 		Circle (CurrentCircleHeight);
+		intensityController.IncreaseIntensity ();
 		currentRadius -= Time.time * circleSpeed;
 		if (currentRadius <= innerRadius) {
 			ContractedTrigger ();
@@ -307,7 +307,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void ExpandedTrigger() {
-		StartTimerAndSetMode (10, DeformMode.ContractingCircle, DeformMode.BigCircle);
+		StartTimerAndSetMode (2, DeformMode.ContractingCircle, DeformMode.BigCircle);
 	}
 
 	void ContractedTrigger() {
@@ -315,7 +315,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void StartedSmallTrigger() {
-		StartTimerAndSetMode (10, DeformMode.ExpandingCircle, DeformMode.SmallCircle);
+		StartTimerAndSetMode (6, DeformMode.ExpandingCircle, DeformMode.SmallCircle);
 	}
 
 	void RoseTrigger() {
@@ -333,7 +333,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void FinalFallenTrigger() {
-		StartTimerAndSetMode (10, DeformMode.WindDown, DeformMode.SweepUp);
+		StartTimerAndSetMode (15, DeformMode.WindDown, DeformMode.SweepUp);
 	}
 
 	void StartRising() {
