@@ -4,12 +4,14 @@ using UnityEngine;
 
 public enum MoveMode
 {
+	Wait,
 	Stop,
 	Move
 }
 
 
 public class PlayerController : MonoBehaviour {
+	public GameObject board;
 	private GameObject currentWaypoint;
 	private float speed;
 	private IList<string> path;
@@ -22,12 +24,12 @@ public class PlayerController : MonoBehaviour {
 		speed = 1f;
 		InitMovement ();
 		deformationController = GameObject.Find ("MovingGrid").GetComponent<DeformationController> ();
+		moveMode = MoveMode.Wait;
 	}
 
 	private void InitMovement() {
 		GetPath ();
 		currentWaypoint = GameObject.Find ("W0");
-		moveMode = MoveMode.Move;
 	}
 
 	private void GetPath() {
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour {
 			} else {
 				DoMovement ();
 			}
+		} else if (moveMode == MoveMode.Wait) {
+			//Do nothing
 		}
 	}
 
@@ -76,4 +80,10 @@ public class PlayerController : MonoBehaviour {
 	private void DoMovement() {
 		transform.position = transform.position + ((currentWaypoint.transform.position - transform.position).normalized * speed);
 	}
+
+	public void HandleTrigger() {
+		moveMode = MoveMode.Move;
+		board.SetActive (false);
+	}
+
 }
