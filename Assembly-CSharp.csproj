@@ -201,6 +201,7 @@
      <Compile Include="Assets\Scripts\IntensityController.cs" />
      <Compile Include="Assets\Scripts\MovingGrid.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\QuadController.cs" />
      <Compile Include="Assets\Scripts\Rotator.cs" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />

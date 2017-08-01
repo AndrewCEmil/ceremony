@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour {
 		speed = 1f;
 		InitMovement ();
 		deformationController = GameObject.Find ("MovingGrid").GetComponent<DeformationController> ();
-		moveMode = MoveMode.Wait;
 	}
 
 	private void InitMovement() {
 		GetPath ();
 		currentWaypoint = GameObject.Find ("W0");
+		moveMode = MoveMode.Move;
 	}
 
 	private void GetPath() {
@@ -80,10 +80,4 @@ public class PlayerController : MonoBehaviour {
 	private void DoMovement() {
 		transform.position = transform.position + ((currentWaypoint.transform.position - transform.position).normalized * speed);
 	}
-
-	public void HandleTrigger() {
-		moveMode = MoveMode.Move;
-		board.SetActive (false);
-	}
-
 }
