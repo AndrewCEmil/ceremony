@@ -49,6 +49,7 @@ public class DeformationController : MonoBehaviour {
 	private float finalStartTime;
 	private float startingSmallCircleScale;
 	private IntensityController intensityController;
+	private float sweepUpRadius;
 	// Use this for initialization
 	void Start () {
 		deformMode = DeformMode.Off;
@@ -68,6 +69,7 @@ public class DeformationController : MonoBehaviour {
 		finalDuration = 5f;
 		startingSmallCircleScale = 0f;
 		intensityController = GameObject.Find ("IntensityObj").GetComponent<IntensityController> ();
+		sweepUpRadius = 5f;
 	}
 	
 	// Update is called once per frame
@@ -142,7 +144,6 @@ public class DeformationController : MonoBehaviour {
 		if (isOff) {
 			return;
 		}
-		//TODO
 		Circle(OffCircleHeight);
 		isOff = true;
 	}
@@ -224,6 +225,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void SweepUp() {
+		sweepUpRadius = sweepUpRadius - Time.deltaTime * 2;
 		Circle (SweepUpHeight);
 	}
 
@@ -235,7 +237,10 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	float SweepUpHeight(Vector3 vertex) {
-		return (-1f * vertex.z) - .002f;
+		if (GetRadius (vertex) > sweepUpRadius) {
+			return -1f;
+		}
+		return Mathf.Clamp ((-1f * vertex.z) - .002f, .01f, 1f);
 	}
 
 	float RisingCircleHeight(Vector3 vertex) {
