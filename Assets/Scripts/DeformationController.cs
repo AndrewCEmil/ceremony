@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum DeformMode
 {
@@ -14,7 +15,8 @@ public enum DeformMode
 	FallingCircle,
 	FinalFallingCircle,
 	SweepUp,
-	WindDown
+	WindDown,
+	End
 }
 
 public delegate float HeightFunction(Vector3 vertex);
@@ -77,7 +79,7 @@ public class DeformationController : MonoBehaviour {
 	}
 
 	void EndScene() {
-		//TODO
+		SceneManager.LoadScene ("Scenes/Blackness");
 	}
 
 	void DoWait() {
@@ -121,6 +123,9 @@ public class DeformationController : MonoBehaviour {
 			break;
 		case DeformMode.WindDown:
 			WindDown ();
+			break;
+		case DeformMode.End:
+			EndScene ();
 			break;
 		}
 
@@ -224,7 +229,7 @@ public class DeformationController : MonoBehaviour {
 
 	void WindDown() {
 		if (intensityController.LightOff ()) {
-			EndScene();
+			StartTimerAndSetMode (7, DeformMode.End, DeformMode.Off);
 		}
 		intensityController.DecreaseIntensity ();
 	}
