@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 	private IList<string> path;
 	private MoveMode moveMode;
 	DeformationController deformationController;
+	private float waitTime;
+	private float startTime;
 	void Start () {
 		Physics.gravity = new Vector3(0, -0.2F, 0);
 		Physics.bounceThreshold = 0;
@@ -24,12 +26,14 @@ public class PlayerController : MonoBehaviour {
 		speed = 1f;
 		InitMovement ();
 		deformationController = GameObject.Find ("MovingGrid").GetComponent<DeformationController> ();
+		startTime = Time.time;
+		waitTime = 5f;
+		moveMode = MoveMode.Wait;
 	}
 
 	private void InitMovement() {
 		GetPath ();
 		currentWaypoint = GameObject.Find ("W0");
-		moveMode = MoveMode.Move;
 	}
 
 	private void GetPath() {
@@ -57,6 +61,13 @@ public class PlayerController : MonoBehaviour {
 			}
 		} else if (moveMode == MoveMode.Wait) {
 			//Do nothing
+			DoWait();
+		}
+	}
+
+	private void DoWait() {
+		if (Time.time - startTime > waitTime) {
+			moveMode = MoveMode.Move;
 		}
 	}
 
