@@ -1,31 +1,24 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/QuadController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DeformationController.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="45" Column="2" />
-      <File FileName="Assets/Scripts/DeformationController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="30" Column="16" />
+      <File FileName="Assets/Scripts/DeformationController.cs" Line="243" Column="52" />
       <File FileName="Assets/Scripts/MovingGrid.cs" Line="1" Column="1" />
       <File FileName="Assets/NatureStarterKit2/Standard Assets/Effects/ImageEffects/Scripts/SunShafts.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Rotator.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Demos/Editor/DemoInputManagerEditor.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/IntensityController.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/EventSystem/GvrBasePointer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/QuadController.cs" Line="20" Column="1" />
+      <File FileName="Assets/Scripts/QuadController.cs" Line="4" Column="34" />
       <File FileName="Assets/GoogleVR/Scripts/UI/GvrReticlePointer.cs" Line="1" Column="1" />
-      <File FileName="Assets/GoogleVR/Scripts/EventSystem/InputModule/GvrPointerInputModuleImpl.cs" Line="204" Column="1" />
+      <File FileName="Assets/GoogleVR/Scripts/EventSystem/InputModule/GvrPointerInputModuleImpl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BlacknessController.cs" Line="20" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="206" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="197" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="199" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="208" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="215" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="217" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="222" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="233" column="1" />
-      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="163" column="1" />
+      <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/DeformationController.cs" line="169" column="1" />
       <Breakpoint file="/Users/ace/Desktop/ceremony/Ceremony/Assets/Scripts/QuadController.cs" line="17" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
