@@ -383,8 +383,8 @@ WindZone:
   m_Radius: 35
   m_WindMain: 1
   m_WindTurbulence: 1
-  m_WindPulseMagnitude: 0.5
-  m_WindPulseFrequency: 0.01
+  m_WindPulseMagnitude: 2
+  m_WindPulseFrequency: 1
 --- !u!1 &1040393429
 GameObject:
   m_ObjectHideFlags: 0
