@@ -1,19 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DeformationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GoogleVR/Shaders/GvrReticleShader.shader">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="30" Column="16" />
-      <File FileName="Assets/Scripts/DeformationController.cs" Line="243" Column="52" />
+      <File FileName="Assets/GoogleVR/Shaders/GvrReticleShader.shader" Line="38" Column="16" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/MovingGrid.cs" Line="1" Column="1" />
-      <File FileName="Assets/NatureStarterKit2/Standard Assets/Effects/ImageEffects/Scripts/SunShafts.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Rotator.cs" Line="1" Column="1" />
-      <File FileName="Assets/GoogleVR/Demos/Editor/DemoInputManagerEditor.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/IntensityController.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/EventSystem/GvrBasePointer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/QuadController.cs" Line="4" Column="34" />
+      <File FileName="Assets/Scripts/QuadController.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/UI/GvrReticlePointer.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/EventSystem/InputModule/GvrPointerInputModuleImpl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BlacknessController.cs" Line="20" Column="3" />
+      <File FileName="Assets/Scripts/BlacknessController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
