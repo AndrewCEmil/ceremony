@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.469
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.30826238, g: 0.34414566, b: 0.40230322, a: 0.469}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.469}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -108,16 +108,16 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &337572374
+--- !u!1 &375661665
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 337572377}
-  - component: {fileID: 337572376}
-  - component: {fileID: 337572375}
+  - component: {fileID: 375661668}
+  - component: {fileID: 375661667}
+  - component: {fileID: 375661666}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -125,25 +125,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!154 &337572375
+--- !u!154 &375661666
 TerrainCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337572374}
+  m_GameObject: {fileID: 375661665}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 45fd573ef52b84244aeea01a78c9f0dd, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: f505c2ad084f64c008e73a2d06b66f17, type: 2}
   m_EnableTreeColliders: 1
---- !u!218 &337572376
+--- !u!218 &375661667
 Terrain:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337572374}
+  m_GameObject: {fileID: 375661665}
   m_Enabled: 1
   serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 45fd573ef52b84244aeea01a78c9f0dd, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: f505c2ad084f64c008e73a2d06b66f17, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -166,12 +166,12 @@ Terrain:
   m_BakeLightProbesForTrees: 1
   m_ScaleInLightmap: 0.0512
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
---- !u!4 &337572377
+--- !u!4 &375661668
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337572374}
+  m_GameObject: {fileID: 375661665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
