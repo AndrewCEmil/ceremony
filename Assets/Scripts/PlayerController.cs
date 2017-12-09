@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 		Physics.gravity = new Vector3(0, -0.2F, 0);
 		Physics.bounceThreshold = 0;
 		//speed = 0.029f;
-		speed = 1f;
+		speed = 0.5f;
 		InitMovement ();
 		deformationController = GameObject.Find ("MovingGrid").GetComponent<DeformationController> ();
 		startTime = Time.time;
