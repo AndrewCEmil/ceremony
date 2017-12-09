@@ -9,14 +9,14 @@ public class BlacknessController : MonoBehaviour {
 	private float duration;
 	private float startTime;
 	void Start () {
-		duration = 20f;
+		duration = 5f;
 		startTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Time.time - startTime > duration) {
-			SceneManager.LoadScene ("Scenes/CeremonyOpener");
+			SceneManager.LoadScene ("Scenes/Ceremony");
 		}
 	}
 }
