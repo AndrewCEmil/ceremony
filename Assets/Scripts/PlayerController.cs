@@ -11,7 +11,7 @@ public enum MoveMode
 
 
 public class PlayerController : MonoBehaviour {
-	public GameObject board;
+
 	private GameObject currentWaypoint;
 	private float speed;
 	private IList<string> path;
@@ -33,12 +33,11 @@ public class PlayerController : MonoBehaviour {
 
 	private void InitMovement() {
 		GetPath ();
-		currentWaypoint = GameObject.Find ("W0");
+		currentWaypoint = GameObject.Find ("monolith");
 	}
 
 	private void GetPath() {
 		path = new List<string> () {
-			"W0", 
 			"monolith"
 		};
 	}
