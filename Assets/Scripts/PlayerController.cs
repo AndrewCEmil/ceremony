@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	DeformationController deformationController;
 	private float waitTime;
 	private float startTime;
+	private GameObject startCanvas;
 	void Start () {
 		Physics.gravity = new Vector3(0, -0.2F, 0);
 		Physics.bounceThreshold = 0;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 		startTime = Time.time;
 		waitTime = 5f;
 		moveMode = MoveMode.Wait;
+		startCanvas = GameObject.Find ("StartCanvas");
 	}
 
 	private void InitMovement() {
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void PointerClicked() {
 		moveMode = MoveMode.Move;
+		startCanvas.SetActive (false);
 	}
 
 	private void HandleMovement() {

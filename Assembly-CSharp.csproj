@@ -170,9 +170,11 @@
      <Compile Include="Assets\Scripts\BlacknessController.cs" />
      <Compile Include="Assets\Scripts\DeformationController.cs" />
      <Compile Include="Assets\Scripts\IntensityController.cs" />
+     <Compile Include="Assets\Scripts\LookAttr.cs" />
      <Compile Include="Assets\Scripts\MovingGrid.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Rotator.cs" />
+     <Compile Include="Assets\Scripts\StartController.cs" />
      <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />
      <None Include="Assets\GoogleVR\Shaders\GvrAdditiveOverlay.shader" />
      <None Include="Assets\GoogleVR\Demos\Environment\DemoEnvUnlitGrayscale.shader" />
