@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MoveMode
 {
@@ -43,7 +44,24 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (GvrControllerInput.AppButtonUp) {
+			HandleAppButton ();
+		}
+
+		if (GvrControllerInput.ClickButtonDown) {
+			PointerClicked ();
+		}
+
 		HandleMovement ();
+	}
+
+	//Reload the scene
+	private void HandleAppButton() {
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+	}
+
+	private void PointerClicked() {
+		moveMode = MoveMode.Move;
 	}
 
 	private void HandleMovement() {
@@ -60,13 +78,6 @@ public class PlayerController : MonoBehaviour {
 			}
 		} else if (moveMode == MoveMode.Wait) {
 			//Do nothing
-			DoWait();
-		}
-	}
-
-	private void DoWait() {
-		if (Time.time - startTime > waitTime) {
-			moveMode = MoveMode.Move;
 		}
 	}
 
