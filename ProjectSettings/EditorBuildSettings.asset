@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CeremonyOpener.unity
-    guid: 3c45fae88cb3648f89e0c83413b3d733
-  - enabled: 1
     path: Assets/Scenes/Ceremony.unity
     guid: 62c76775ad6ab442f9465711b76116ed
   - enabled: 1

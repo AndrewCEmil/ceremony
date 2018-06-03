@@ -22,10 +22,12 @@ public class IntensityController : MonoBehaviour {
 
 	public void IncreaseIntensity() {
 		ChangeIntensity (10f);
+		RenderSettings.fogDensity -= .001f;
 	}
 
 	public void DecreaseIntensity() {
 		ChangeIntensity (-75f);
+		RenderSettings.fogDensity += .0075f;
 	}
 
 	private void ChangeIntensity(float positivity) {
