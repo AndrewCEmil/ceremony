@@ -1,15 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/IntensityController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DeformationController.cs">
     <Files>
-      <File FileName="Assets/NatureManufacture Assets/Third-Party Notices.txt" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DeformationController.cs" Line="58" Column="8" />
+      <File FileName="Assets/Scripts/IntensityController.cs" Line="30" Column="4" />
       <File FileName="Assets/Scripts/BlacknessController.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DeformationController.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/MovingGrid.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Rotator.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Demos/Editor/DemoInputManagerEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/IntensityController.cs" Line="35" Column="32" />
       <File FileName="Assets/GoogleVR/Scripts/EventSystem/GvrBasePointer.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/UI/GvrReticlePointer.cs" Line="1" Column="1" />
       <File FileName="Assets/GoogleVR/Scripts/EventSystem/InputModule/GvrPointerInputModuleImpl.cs" Line="1" Column="1" />
