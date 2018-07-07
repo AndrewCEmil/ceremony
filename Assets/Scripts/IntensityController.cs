@@ -10,10 +10,12 @@ public class IntensityController : MonoBehaviour {
 	private float maxMoonIntensity;
 	private float maxWindMain;
 	private float maxWindTurbulance;
+    private NM_Wind nm_wind;
 	void Start () {
 		maxMoonIntensity = 3f;
 		maxWindMain = 20f;
 		maxWindTurbulance = 5f;
+        nm_wind = wind.GetComponent<NM_Wind>();
 	}
 
 	public bool LightOff() {
@@ -26,13 +28,15 @@ public class IntensityController : MonoBehaviour {
 	}
 
 	public void DecreaseIntensity() {
-		ChangeIntensity (-75f);
+		ChangeIntensity (-35f);
 		//RenderSettings.fogDensity += .0075f;
 	}
 
 	private void ChangeIntensity(float positivity) {
 		moon.intensity = Mathf.Clamp (moon.intensity + .001f * positivity, 0f, maxMoonIntensity);
-		wind.windMain = Mathf.Clamp (wind.windMain + .007f * positivity, 0f, maxWindMain);
-		wind.windTurbulence = Mathf.Clamp (wind.windTurbulence + .002f * positivity, 0f, maxWindTurbulance);
+		//wind.windMain = Mathf.Clamp (wind.windMain + .007f * positivity, 0f, maxWindMain);
+		//wind.windTurbulence = Mathf.Clamp (wind.windTurbulence + .002f * positivity, 0f, maxWindTurbulance);
+        nm_wind.WindSpeed = nm_wind.WindSpeed + .03f * positivity;
+        nm_wind.Turbulence = nm_wind.Turbulence + .0004f * positivity;
 	}
 }
