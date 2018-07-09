@@ -62,7 +62,7 @@ public class DeformationController : MonoBehaviour {
 		middlePosition = new Vector3 (5, 5, 0);
 		currentRadius = smallRadius;
 		isWaiting = false;
-		circleSpeed = .005f;
+		circleSpeed = .003f;
 		storedVector = new Vector3 (0, 0, 0);
 		risingDuration = 3f;
 		fallingDuration = 6f;
@@ -231,7 +231,7 @@ public class DeformationController : MonoBehaviour {
 
 	void WindDown() {
 		if (intensityController.LightOff ()) {
-			StartTimerAndSetMode (7, DeformMode.End, DeformMode.Off);
+			StartTimerAndSetMode (12, DeformMode.End, DeformMode.Off);
 		}
 		intensityController.DecreaseIntensity ();
 	}

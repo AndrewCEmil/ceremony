@@ -34,9 +34,9 @@ public class IntensityController : MonoBehaviour {
 
 	private void ChangeIntensity(float positivity) {
 		moon.intensity = Mathf.Clamp (moon.intensity + .0004f * positivity, 0f, maxMoonIntensity);
-		//wind.windMain = Mathf.Clamp (wind.windMain + .007f * positivity, 0f, maxWindMain);
-		//wind.windTurbulence = Mathf.Clamp (wind.windTurbulence + .002f * positivity, 0f, maxWindTurbulance);
-        nm_wind.WindSpeed = nm_wind.WindSpeed + .002f * positivity;
+        //wind.windMain = Mathf.Clamp (wind.windMain + .007f * positivity, 0f, maxWindMain);
+        //wind.windTurbulence = Mathf.Clamp (wind.windTurbulence + .002f * positivity, 0f, maxWindTurbulance);
+        nm_wind.WindSpeed = Mathf.Clamp(nm_wind.WindSpeed + .002f * positivity, 0f, 200f);
         //nm_wind.Turbulence = nm_wind.Turbulence + .0001f * positivity;
 	}
 }
